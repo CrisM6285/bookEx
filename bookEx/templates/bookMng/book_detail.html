@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Book Detail
+{% endblock title %}
+
+
+
+{% block content %}
+    <h1 class="border-bottom pb-2">Book Detail</h1>
+    <table align="center" class="table table-hover table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Book Name</th>
+                <th class="col-1">Image</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                   {{ book.name }}
+                </td>
+                <td>
+                    <img src="{% if book.picture %}
+                                {% static book.pic_path %}
+                             {% else %}
+                                {% static 'logo.jpg' %}
+                             {% endif %}" width="50" height="75"/>
+                </td>
+                <td>
+                   {{ book.username }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}

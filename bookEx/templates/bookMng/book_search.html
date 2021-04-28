@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Book Search
+{% endblock title %}
+
+
+
+{% block content %}
+<h1 class="border-bottom pb-2">Book Search</h1>
+
+<div align="center">
+    <form enctype="multipart/form-data" method="post" novalidate>
+        <div class="form-group d-flex flex-row justify-content-start align-items-center pb-2">
+            <div class="text-nowrap ">
+                <label for="id_name" class="form-label">Book Search</label>
+            </div>
+            <div class="px-2">
+                    {{ form.name|add_class:"form-control" }}
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        {% csrf_token %}
+    </form>
+    {% csrf_token %}
+</div>
+
+{% if submitted %}
+    <h5>Results for "{{ searched }}"</h5>
+    <table align="center"  class="table table-hover table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Book Name</th>
+                <th class="col-1">Image</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        {% for book in books %}
+            <tr>
+                <td>
+                    <a href="book_detail/{{ book.id }}" class="text-decoration-none">
+                        {{ book.name }}
+                    </a>
+                </td>
+                <td>
+                    <img src="  {% if book.picture %}
+                                    {% static book.pic_path %}
+                                {% else %} {% static 'logo.jpg' %}
+                                    {% endif %}" width="50" height="75"/>
+                </td>
+                <td>
+                    {{ book.username }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock content %}

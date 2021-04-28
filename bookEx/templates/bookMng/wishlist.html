@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Wish List
+{% endblock title %}
+
+
+
+
+{% block content %}
+    <h1 class="border-bottom pb-2">Wish List</h1>
+
+    <div>
+    {% if user.is_authenticated %}
+        <form enctype="multipart/form-data" method="post" novalidate>
+            <div class="form-group d-flex flex-row justify-content-start align-items-center pb-2">
+                <div class="text-nowrap ">
+                    <label for="id_bookName" class="form-label">Book Name</label>
+                </div>
+                <div class="px-2">
+                        {{ form.bookName|add_class:"form-control" }}
+                </div>
+                <div class="">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            {% csrf_token %}
+        </form>
+    {% else %}
+        <span><a href="{% url 'login' %}?next=/">Login</a> to add a wishlist.</span>
+    {% endif %}
+    </div>
+
+    <table class="table table-hover table-bordered" align="center">
+        <thead class="table-light">
+            <tr>
+                <th class="col-6">Book Name</th>
+                <th class="col-6">Wished by</th>
+            </tr>
+        </thead>
+        {% for wish in wish_list %}
+        <tr>
+            <td>
+                {{ wish.bookName }}
+            </td>
+            <td>
+                {{ wish.theUser.username }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content %}
