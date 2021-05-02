@@ -1,38 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-    Book Detail
-{% endblock title %}
 
 
+{% block body %}
 
-{% block content %}
-    <h1 class="border-bottom pb-2">Book Detail</h1>
-    <table align="center" class="table table-hover table-bordered table-sm">
-        <thead class="table-light">
-            <tr>
-                <th>Book Name</th>
-                <th class="col-1">Image</th>
-                <th>Owner</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                   {{ book.name }}
-                </td>
-                <td>
-                    <img src="{% if book.picture %}
-                                {% static book.pic_path %}
-                             {% else %}
-                                {% static 'logo.jpg' %}
-                             {% endif %}" width="50" height="75"/>
-                </td>
-                <td>
-                   {{ book.username }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-{% endblock content %}
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-md-row m-2 shadow rounded p-2 align-items-center bg-light">
+            <div class="d-flex p-2 mx-auto mx-md-0 bg-light">
+                    <img src="
+                        {% if book.picture %}
+                            {% static book.pic_path %}
+                        {% else %}
+                            {% static 'logo.jpg' %}
+                        {% endif %}
+                    " style="max-width: 150px; max-height: 100%;" />
+            </div>
+            <div class="d-flex flex-row flex-wrap p-2 bg-light">
+                    <table class="table-borderless d-inline-flex text-start">
+                        <tr>
+                            <th class="p-2 text-end">Title: </td>
+                            <td class="p-2">{{ book.name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="p-2 text-end">Web: </td>
+                            <td class="p-2">{{ book.web }}</td>
+                        </tr>
+                        <tr>
+                            <th class="p-2 text-end ">Price: </td>
+                            <td class="p-2">${{ book.price }}</td>
+                        </tr>
+                        <tr>
+                            <th class="p-2 text-end">Published: </td>
+                            <td class="p-2">{{ book.publishdate }}</td>
+                        </tr>
+                        <tr>
+                            <th class="p-2 text-end">Owner: </td>
+                            <td class="p-2">{{ book.username }}</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

@@ -2,54 +2,48 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}
-    Wish List
-{% endblock title %}
 
 
+{% block body %}
 
-
-{% block content %}
-    <h1 class="border-bottom pb-2">Wish List</h1>
-
-    <div>
     {% if user.is_authenticated %}
+
         <form enctype="multipart/form-data" method="post" novalidate>
             <div class="form-group d-flex flex-row justify-content-start align-items-center pb-2">
-                <div class="text-nowrap ">
+                <div class="text-nowrap">
                     <label for="id_bookName" class="form-label">Book Name</label>
                 </div>
                 <div class="px-2">
-                        {{ form.bookName|add_class:"form-control" }}
+                        {{ form.bookName|add_class:"form-control"|attr:"autofocus" }}
                 </div>
-                <div class="">
+                <div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
             {% csrf_token %}
         </form>
+
     {% else %}
-        <span><a href="{% url 'login' %}?next=/">Login</a> to add a wishlist.</span>
+
+        <div>
+            <a href="{% url 'login' %}?next=/">Login</a> to add a wishlist.
+        </div>
+
     {% endif %}
-    </div>
 
-    <table class="table table-hover table-bordered" align="center">
-        <thead class="table-light">
-            <tr>
-                <th class="col-6">Book Name</th>
-                <th class="col-6">Wished by</th>
-            </tr>
-        </thead>
-        {% for wish in wish_list %}
-        <tr>
-            <td>
-                {{ wish.bookName }}
-            </td>
-            <td>
-                {{ wish.theUser.username }}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="d-flex flex-row flex-wrap justify-content-around justify-content-md-start align-items-stretch">
+            <table class="d-inline-flex">
+                <tr class="border-dark border-bottom">
+                    <th class="p-2">Book Name</th>
+                    <th class="p-2">Wished by</th>
+                </tr>
+                {% for wish in wish_list %}
+                    <tr class="border-bottom">
+                        <td class="p-2">{{ wish.bookName }}</td>
+                        <td class="p-2">{{ wish.theUser.username }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-{% endblock content %}
+{% endblock body %}

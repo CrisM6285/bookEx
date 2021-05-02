@@ -1,24 +1,34 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- 
+        Title will auto populate with the 'title' variable. 
+        Create the variable 'title' in each function in views.py. 
+    -->
     <title>
-        {% block title %}
-            My title
-        {% endblock title %}
+        {{ title }}
     </title>
 
+    <!-- Bootstrap stylesheets -->
     <link rel="stylesheet" href="{% static 'assets/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    {% block stylesheets %}
+
+    {% endblock stylesheets %}
 </head>
 
 
-<body>
-    <header class="navbar navbar-dark bg-dark sticky-top d-flex flex-column flex-md-row flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand bg-dark me-0 p-3 text-decoration-none" href="/">BookEx</a>
+
+<body class="d-flex flex-column h-100">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar navbar-dark bg-dark sticky-top d-flex flex-column flex-md-row flex-md-nowrap p-0">
+        <a class="navbar-brand p-3 border-0" href="/">BookEx</a>
 
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,44 +37,68 @@
         <div class="text-end pb-2 pb-md-0 pe-2 text-white">
             {% if user.is_authenticated %}
                 Signed in as {{ user.username }}
-                <a class="btn btn-outline-light me-2" href="{% url 'logout' %}?next=/">Logout</a>
+                <a class="btn btn-outline-light" href="{% url 'logout' %}?next=/">Logout</a>
             {% else %}
-                <a class="btn btn-outline-light me-2" href="{% url 'login' %}?next=/">Login</a>
+                <a class="btn btn-outline-light" href="{% url 'login' %}?next=/">Login</a>
             {% endif %}
         </div>
     </header>
 
+    <!--    Sidebar Menu
+            Auto populates the menu items.  -->
     <div class="container-fluid">
         <div class="row pb-8">
-            <nav id="sidebarMenu" class="col-md-2 d-md-block bg-light sidebar collapse">
+
+            <nav id="sidebarMenu" class="col-md-2 d-md-block bg-light sidebar collapse shadow">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
+
                         {% for item in item_list %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ item.link }}"> {{ item.item }} </a>
+                                <a class="nav-link" href="{{ item.link }}">{{ item.item }}</a>
                             </li>
                         {% endfor %}
-                        {% block sidenav %}
 
+                        {% block sidenav %}
                         {% endblock sidenav %}
+
                     </ul>
                 </div>
             </nav>
 
-            <main class="col-md-10 ms-sm-auto px-md-4 mb-5 mt-2">
-                {% block content %}
+            <main class="col-md-10 ms-sm-auto px-md-4 mb-4 mt-2">
+
+                <div class="pb-2">
+                    <h2 class="border-bottom pb-2">
+
+                        {% block header %}
+                            {% if header %}
+                                {{ header }}
+                            {% else %}
+                                {{ title }}
+                            {% endif %}
+                        {% endblock header %}
+
+                    </h2>
+                </div>
+
+                {% block body %}
                     <h1>This is our BookExchange</h1>
-                {% endblock content %}
+                {% endblock body %}
+
             </main>
+
         </div>
     </div>
 
-    <footer class="footer mt-auto py-3 bg-light col-md-10 ms-sm-auto px-md-4 fixed-bottom">
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light col-md-10 ms-md-auto">
         <div class="container" align="center">
             <span class="text-muted">2021 Spring Django Python Base Web System</span>
         </div>
     </footer>
 
+    <!-- Bootstrap JS -->
     <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
