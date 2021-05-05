@@ -3,13 +3,21 @@
 {% load widget_tweaks %}
 
 
-
 {% block body %}
 
-    <div class="d-flex flex-column flex-md-row rounded align-items-start">
-
+    <div class="d-flex flex-column align-items-center">
+        <div class="py-1 d-inline-flex">Subtotal ({{ cart_size }} items): <div class="ps-2 fw-bold"> ${{ total_price }}</div></div>
+        <div class="py-1 d-flex">
+            <form enctype="multipart/form-data" method="post" novalidate>
+                <button class="btn btn-warning {% if cart_size == 0 %}disabled{% endif %}" type="submit">Complete checkout</button>
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% for book in books %}
+    <div class="py-2 d-flex flex-column flex-md-row rounded align-items-start">
         <div class="d-flex flex-column p-0 mx-auto mx-md-0 bg-transparent">
-
             <img src="
                 {% if book.picture %}
                     {% static book.pic_path %}
@@ -17,19 +25,6 @@
                     {% static 'logo.jpg' %}
                 {% endif %}
             " height="175"/>
-
-            <div class="mx-auto p-2">
-                {% if book.username.id == user.id %}
-                    <button class="btn btn-warning disabled" type="button">Add to Cart</button>
-                {% else %}
-                <form enctype="multipart/form-data" method="post" novalidate>
-                    {% render_field form.seller_book_id value=book.id type="hidden" %}
-                    <button class="btn btn-warning" type="submit">Add to Cart</button>
-                    {% csrf_token %}
-                </form>
-                {% endif %}
-            </div>
-
         </div>
 
         <div class="ps-0 pt-2 ps-md-2 d-flex flex-column flex-wrap bg-transparent">
@@ -56,7 +51,8 @@
                 </tr>
             </table>
         </div>
-
     </div>
+    <hr>
+    {% endfor %}
 
 {% endblock body %}

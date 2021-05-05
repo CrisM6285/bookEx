@@ -7,32 +7,48 @@
 {% block body %}
 
     {% if submitted %}
-        <p>Post Book Successfully</p>
+        <p>Post successful! Post another <a href="{% url 'postbook' %}">one</a>!</p>
     {% else %}
-        <form enctype="multipart/form-data" method="post" novalidate>
-            <table class="table-borderless d-flex">
-                <tr>
-                    <td class="p-1"><label for="id_name">Name</label></td>
-                    <td class="p-1">{{ form.name|add_class:"form-control"|attr:"autofocus" }}</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><label for="id_web">Web</label></td>
-                    <td class="p-1">{{ form.web|add_class:"form-control" }}</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><label for="id_price">Price</label></td>
-                    <td class="p-1">{{ form.price|add_class:"form-control" }}</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><label for="id_picture">Picture</label></td>
-                    <td class="p-1">{{ form.picture|add_class:"form-control" }}</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><button type="submit" class="btn btn-primary" role="button">Submit</button></td>
-                </tr>
-            </table>
-            {% csrf_token %}
-        </form>
+        <div class="container-fluid mx-md-0" style="max-width: 450px;">
+            <div class="row justify-content-start row-cols-1">
+                <form enctype="multipart/form-data" method="post" novalidate>
+                    <div class="col pb-2">
+                        <div class="row g-0 align-items-md-center">
+                            <div class="pb-1 col-auto text-start"><label for="id_name">Name</label></div>
+                            <div class="col-12">{{ form.name|add_class:"form-control"|attr:"autofocus" }}</div>
+                        </div>
+                    </div>
+                    <div class="col pb-2">
+                        <div class="row g-0 align-items-md-center">
+                            <div class="pb-1 col-auto text-start"><label for="id_web">Web</label></div>
+                            <div class="col-12">{{ form.web|add_class:"form-control" }}</div>
+                        </div>
+                    </div>
+                    <div class="col pb-2">
+                        <div class="row g-0 align-items-md-center">
+                            <div class="pb-1 col-auto text-start"><label for="id_price">Price</label></div>
+                            <div class="col-12">{{ form.price|add_class:"form-control" }}</div>
+                        </div>
+                    </div>
+                    <div class="col pb-2">
+                        <div class="row g-0 align-items-md-center">
+                            <div class="pb-1 col-auto text-start"><label for="id_picture">Picture</label></div>
+                            <div class="col-12">{{ form.picture|add_class:"form-control" }}</div>
+                        </div>
+                    </div>
+                    <div class="col pb-2">
+                        <div class="row g-0 align-items-md-center">
+                            <div class="col-auto text-start"">
+                                <button type="submit" class="btn btn-primary" role="button">Submit</button>
+                                {% csrf_token %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     {% endif %}
+
+
 
 {% endblock body %}
