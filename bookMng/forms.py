@@ -3,8 +3,9 @@ from django.forms import ModelForm
 
 from .models import Announcement
 from .models import Book
-from .models import Wish
 from .models import BookSearch
+from .models import Cart
+from .models import Wish
 
 
 class AnnouncementForm(ModelForm):
@@ -24,13 +25,19 @@ class BookForm(ModelForm):
         ]
 
 
-class WishForm(ModelForm):
+class CartForm(ModelForm):
     class Meta:
-        model = Wish
-        fields = ['bookName']
+        model = Cart
+        fields = ['seller_book_id']
 
 
 class SearchForm(ModelForm):
     class Meta:
         model = BookSearch
         fields = ['name']
+
+
+class WishForm(ModelForm):
+    class Meta:
+        model = Wish
+        fields = ['bookName']

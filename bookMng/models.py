@@ -27,12 +27,12 @@ class Book(models.Model):
     web = models.URLField(max_length=200)
     price = models.DecimalField(decimal_places=2, max_digits=8)
     publishdate = models.DateField(auto_now=True)
-    picture = models.FileField(upload_to='bookEx/static/uploads')
+    picture = models.FileField(upload_to='bookEx/static/uploads', blank=False)
     pic_path = models.CharField(max_length=300, editable=False, blank=True)
     username = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.name)
 
 
 class BookSearch(models.Model):
@@ -42,10 +42,18 @@ class BookSearch(models.Model):
         return str(self.name)
 
 
+class Cart(models.Model):
+    seller_book_id = models.IntegerField()
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
+
+
 class Wish(models.Model):
     bookName = models.CharField("Book Name", max_length=200)
     theUser = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.bookName)
 
