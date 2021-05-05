@@ -3,17 +3,17 @@
 
 
 
-{% block sidenav %}
-<li class="nav-item">
-    <a class="nav-link" href="/">Home</a>
-</li>
-{% endblock sidenav %}
-
 
 {% block body %}
 
-    <p>
-        To login<a href="{% url 'login' %}?next=/">Click Here</a>
-    </p>
+    {% if user.is_authenticated %}
+        <p>
+            Go to <a href="/">Home</a> page.
+        </p>
+    {% else %}
+        <p>
+            To login <a href="{% url 'login' %}?next=/">click Here</a>
+        </p>
+    {% endif %}
 
 {% endblock body %}
