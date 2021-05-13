@@ -66,9 +66,11 @@
                         <div class="col-auto">
                             <a class="pe-0 btn btn-secondary border-0 bg-transparent" href="{% url 'cart' %}">
                                 <i class="bi bi-cart2"></i>
-                                <div class="badge rounded-pill d-inline-flex bg-transparent text-warning" style="right: 10px;top: -10px;">{{ cart_size }}</div>
-                            </a>
-                        </div>
+                                    <div class="badge rounded-pill d-inline-flex bg-transparent text-warning" style="right: 10px;top: -10px;">
+                                        {{ cart_size }}
+                                    </div>
+                                </a>
+                            </div>
                         {% endif %}
                         <div class="col-auto ps-1 btn-group" role="group">
                             <button id="userBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm border-0 bg-transparent ps-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,7 +78,6 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userBtn">
                                 <li><a class="dropdown-item" href="{{ my_books }}">My Books</a></li>
-                                <li><a class="dropdown-item" href="#">[Dropdown link]</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}?next=/"">Logout</a></li>
                             </ul>

@@ -90,6 +90,7 @@ def book_delete(request, book_id):
 def book_detail(request, book_id):
     uid = request.user.id
     book = Book.objects.get(id=book_id)
+    book_ids = [book_ids for book_ids, in Cart.objects.filter(user=uid).values_list('seller_book_id')]
 
     if request.method == 'POST':
         form = CartForm(request.POST)
@@ -111,7 +112,8 @@ def book_detail(request, book_id):
                       'item_list': MainMenu.objects.all(),
                       'book': book,
                       'cart_size': Cart.objects.filter(user=uid).count(),
-                      'cart_items': list(Cart.objects.filter(user=uid).values_list('seller_book_id'))
+                      'cart_items': list(Cart.objects.filter(user=uid).values_list('seller_book_id')),
+                      'book_ids': book_ids
                   })
 
 
