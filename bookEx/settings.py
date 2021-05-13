@@ -26,7 +26,7 @@ SECRET_KEY = '$tix#l0m9bgyd3t!4_+4x+xysyog*vzynpv!i!mtu#(0sa$2$m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['group-4-bookex.herokuapp.com']
 
 # Application definition
 
